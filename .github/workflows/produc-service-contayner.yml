@@ -19,6 +19,8 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+            echo ${{ secrets.AZURE_CREDENTIALS }}
+            echo ${{ env.AZURE_CREDENTIALS }}
 
       - name: Set ACR name
         id: set-acr-name

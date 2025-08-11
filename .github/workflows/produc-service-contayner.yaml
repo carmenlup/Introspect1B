@@ -1,0 +1,45 @@
+# .github/workflows/azure-ci.yml
+
+name: Docker Image CI to ACR
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Log in to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Set ACR name
+        id: set-acr-name
+        run: echo "ACR_NAME=myproductserviceregistry" >> $GITHUB_ENV
+      
+      - name: Set Image Tag
+        id: set-image-tag
+        run: echo "IMAGE_TAG=v1" >> $GITHUB_ENV
+
+      - name: Build and push Docker image to ACR
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ env.ACR_NAME }}.azurecr.io
+          username: ${{ secrets.AZURE_CREDENTIALS.clientId }}
+          password: ${{ secrets.AZURE_CREDENTIALS.clientSecret }}
+
+      - name: Build and tag the Docker image
+        run: |
+          docker build . --file ProductService/Dockerfile -t ${{ env.ACR_NAME }}.azurecr.io/productservice:${{ env.IMAGE_TAG }}
+      
+      - name: Push the image to ACR
+        run: docker push ${{ env.ACR_NAME }}.azurecr.io/productservice:${{ env.IMAGE_TAG }}
+
+      - name: Azure CLI logout
+        run: az logout

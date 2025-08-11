@@ -7,6 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderApi", "OrderApi\OrderA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductService", "ProductService\ProductService.csproj", "{8904E120-0DA1-4FC5-A157-A77B929C644F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{4EFCE5A0-6B0C-4D91-BD3A-EDF5B4ACFB3B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{3492E140-4D97-406D-AC93-3F630E100A7B}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\produc-service-contayner.yaml = .github\workflows\produc-service-contayner.yaml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +31,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3492E140-4D97-406D-AC93-3F630E100A7B} = {4EFCE5A0-6B0C-4D91-BD3A-EDF5B4ACFB3B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {879A9AB7-59BF-4E0E-A51F-F776EBA77AE4}

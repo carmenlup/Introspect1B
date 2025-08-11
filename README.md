@@ -8,7 +8,7 @@ Solution strucure contains the following projects:
 ProductService microservice is a RESTful API that provides product-related functionalities. It allows users to manage products, including creating, updating, retrieving, and deleting product information.
 It provides a Swagger UI for easy API exploration and testing.
 
-Also, it is containerized using Docker for easy deployment and scalability. Please reffer to the [Containerization](ProductService/Dockerfile) file code that contains documented step by step configuration to containerize the Product service.
+Also, it is containerized using Docker for easy deployment and scalability. Please reffer to the [Dockerfile](ProductService/Dockerfile) file code that contains documented step by step configuration to containerize the Product service.
 
 ## Containerization 
 This chapter outlines the steps to containerize the ProductService API using Docker. The process includes building the Docker image, creating a self-signed certificate for HTTPS, and running the container with the necessary environment variables.
@@ -44,4 +44,24 @@ You can access the Product Service API at the following URL:
 ```
 https://localhost:8081/swagger/index.html
 http://localhost:8080/swagger/index.html
+```
+
+## Deployment
+##### 1. Login to azure
+```
+az login --tenant YOUR_TENANT_ID_
+```
+##### 1 Create the resource group
+```
+az group create --name introspect-1-b --location westeurope
+```
+##### 2. Create the ACR registry
+```
+az acr create --resource-group introspect-1-b --name introspect1bacr --sku Basic
+```
+##### 3. Create Azure Service Principal to setup the GitHub Action
+```
+az ad sp create-for-rbac --name "myGitHubActionsSP" --role contributor `
+--scopes /subscriptions/{subscription-id}/resourceGroups/{resource-group} `
+--json-auth
 ```

@@ -5,6 +5,7 @@ name: Docker Image CI to ACR
 on:
   push:
     branches: [ "main" ]
+    workflow_dispatch:
 
 jobs:
   build-and-push:

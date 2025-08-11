@@ -1,15 +1,18 @@
 # Introspect1B
-Contains the next stucture
-1. Product Service Microservice
-1. Order Service Microservice
+Introspect1B solution includes 2 microservices that are separated projects.
+Solution strucure contains the following projects:
+1. ProductService project
+1. OrderService project
 
+# ProductService Microservice Documentation
+ProductService microservice is a RESTful API that provides product-related functionalities. It allows users to manage products, including creating, updating, retrieving, and deleting product information.
+It provides a Swagger UI for easy API exploration and testing.
 
-## Product Overview
-Product service microservice
+Also, it is containerized using Docker for easy deployment and scalability. Please reffer to the [Containerization](ProductService/Dockerfile) file code that contains documented step by step configuration to containerize the Product service.
 
-### Containerization 
+## Containerization 
+This chapter outlines the steps to containerize the ProductService API using Docker. The process includes building the Docker image, creating a self-signed certificate for HTTPS, and running the container with the necessary environment variables.
 
-ProductService API Containerisation Steps
 ##### 1. Build Immage
 ```
 docker build -t productservice .

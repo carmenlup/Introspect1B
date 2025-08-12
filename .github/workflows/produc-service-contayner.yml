@@ -5,6 +5,7 @@ name: Docker Image CI to ACR
 on:
   push:
     branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
   build-and-push:
@@ -15,9 +16,11 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Log in to Azure
-        uses: azure/login@v1
+        uses: azure/login@v2
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          client-id: ${{ secrets.AZURE_CREDENTIALS.clientId }}
+          tenant-id: ${{ secrets.AZURE_CREDENTIALS.tenantId }}
+          subscription-id: ${{ secrets.AZURE_CREDENTIALS.subscriptionId }}
 
       - name: Set ACR name
         id: set-acr-name

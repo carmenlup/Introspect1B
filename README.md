@@ -15,7 +15,7 @@ This chapter outlines the steps to containerize the ProductService API using Doc
 
 ##### 1. Build Immage
 ```
-docker build -t productservice .
+docker build -t productservice:latest .
 ```
 
 ##### 2. Create  Self-Signed Certificate
@@ -51,17 +51,29 @@ http://localhost:8080/swagger/index.html
 ```
 az login --tenant YOUR_TENANT_ID_
 ```
-##### 1 Create the resource group
+##### 2 Create the resource group
 ```
 az group create --name introspect-1-b --location westeurope
 ```
-##### 2. Create the ACR registry
+##### 3. Create the ACR registry
 ```
 az acr create --resource-group introspect-1-b --name introspect1bacr --sku Basic
 ```
-##### 3. Create Azure Service Principal to setup the GitHub Action
+
+##### 5 Get the ACR login server name
 ```
-az ad sp create-for-rbac --name "myGitHubActionsSP" --role contributor `
---scopes /subscriptions/{subscription-id}/resourceGroups/{resource-group} `
---json-auth
+az acr show --name introspect1bacr --query loginServer --output table
+```
+
+##### 5. Login to the ACR registry
+```
+az acr login --name introspect1bacr
+```
+##### 6. Tag the Docker image
+```
+docker tag productservice introspect1bacr.azurecr.io/productservice:latest
+```
+##### 7. Push the Docker image to ACR
+```
+docker push introspect1bacr.azurecr.io/productservice:latest
 ```

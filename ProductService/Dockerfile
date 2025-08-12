@@ -8,7 +8,6 @@ RUN dotnet restore
 
 # Copy the rest of the application files and build the application
 COPY . .
-# RUN dotnet build "ProductService.csproj" -c Release -o /app/build
 
 # Publish the application
 RUN dotnet publish -c Release -o /app/publish

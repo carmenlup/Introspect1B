@@ -1,4 +1,4 @@
-//using Dapr.Client;
+using Dapr.Client;
 
 using Microsoft.AspNetCore.Mvc;
 using ProductApi.Models;
@@ -9,12 +9,12 @@ namespace ProductService.Controllers
     [Route("api/[controller]")]
     public class ProductController : ControllerBase
     {
-        //private readonly DaprClient _daprClient;
-
-        //public ProductController(DaprClient daprClient)
-        //{
-        //    _daprClient = daprClient;
-        //}
+        private readonly DaprClient _daprClient;
+        
+        public ProductController(DaprClient daprClient)
+        {
+            _daprClient = daprClient;
+        }
 
         // GET: api/product
         [HttpGet]
@@ -58,7 +58,7 @@ namespace ProductService.Controllers
             };
 
             // Publish event to Dapr pub/sub
-            //await _daprClient.PublishEventAsync("pubsub", "product-created", productCreatedEvent);
+            await _daprClient.PublishEventAsync("pubsub", "product-created", productCreatedEvent);
 
             return Ok(new { Message = "Product created and event published." });
         }

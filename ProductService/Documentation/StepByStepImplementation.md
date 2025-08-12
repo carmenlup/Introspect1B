@@ -83,4 +83,4 @@ This documentation contain step by step instructions on ProductService microserv
 	}
 	```
 The above code demonstrates how to use Dapr for service invocation in the `CreateProduct` method. You can similarly update other methods to use Dapr for state management or service invocation as needed.
-Reffer to [Program.cs](ProductService/Program.cs) for complete code of the ProductService API.
+Reffer to [Program.cs](../Program.cs) for complete code of the ProductService API.

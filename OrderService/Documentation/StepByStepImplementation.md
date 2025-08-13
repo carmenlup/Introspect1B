@@ -86,7 +86,7 @@ docker run -it --rm -p 8021:8021 `
 
 ### Accessing the Order Service
 You can access the Order Service API at the following URL:
-```http
+```https
 https://localhost:8021/swagger/index.html
 http://localhost:8020/swagger/index.html
 ```

@@ -22,33 +22,33 @@ This documentation contain step by step instructions on ProductService microserv
 	 ``` 
 ##### 4. Replace code in Program.cs to configure Swagger and enable HTTPS redirection. Open `Program.cs` and replace the existing code with the following:
 
-	```
-	using Dapr.Client;
+``` csharp
+using Dapr.Client;
 
-	var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 
-	// Add services to the container.
+// Add services to the container.
 
-	builder.Services.AddControllers(); 
-	// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-	builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddControllers(); 
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
 
-	builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen();
 
-	var app = builder.Build();
+var app = builder.Build();
 
-	// Configure the HTTP request pipeline.
-	app.UseSwagger();
-	app.UseSwaggerUI();
+// Configure the HTTP request pipeline.
+app.UseSwagger();
+app.UseSwaggerUI();
 
-	app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 
-	app.UseAuthorization();
+app.UseAuthorization();
 
-	app.MapControllers();
+app.MapControllers();
 
-	app.Run();
-	```
+app.Run();
+```
 
 ## Containerization and run ProductService without Dapr
   
@@ -71,7 +71,7 @@ dotnet dev-certs https --trust
 
 ##### 4. Run the Container
 
-```
+```powershell
 docker run -it --rm -p 8081:8081 `
   -e "ASPNETCORE_URLS=https://+:8081;http://+:8080" `
   -e "ASPNETCORE_HTTPS_PORTS=8081" `
@@ -103,36 +103,36 @@ docker rm -f productservice
 	 ```
 ##### 2. Configure Dapr in Program.cs. Open `Program.cs` and replace the existing code with the following:
 
-	```csharp
-	using Dapr.Client;
-
-	var builder = WebApplication.CreateBuilder(args);
-
-	// Add services to the container.
-
-	builder.Services.AddControllers().AddDapr(); 
-	// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-	builder.Services.AddEndpointsApiExplorer();
-
-	builder.Services.AddSwaggerGen();
-
-	// Register DaprClient with the dependency injection container.
-	builder.Services.AddSingleton(new DaprClientBuilder().Build());
-
-	var app = builder.Build();
-
-	// Configure the HTTP request pipeline.
-	app.UseSwagger();
-	app.UseSwaggerUI();
-
-	app.UseHttpsRedirection();
-
-	app.UseAuthorization();
-
-	app.MapControllers();
-
-	app.Run();
-	```
+```csharp
+ using Dapr.Client;
+ 
+ var builder = WebApplication.CreateBuilder(args);
+ 
+ // Add services to the container.
+ 
+ builder.Services.AddControllers().AddDapr(); 
+ // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+ builder.Services.AddEndpointsApiExplorer();
+ 
+ builder.Services.AddSwaggerGen();
+ 
+ // Register DaprClient with the dependency injection container.
+ builder.Services.AddSingleton(new DaprClientBuilder().Build());
+ 
+ var app = builder.Build();
+ 
+ // Configure the HTTP request pipeline.
+ app.UseSwagger();
+ app.UseSwaggerUI();
+ 
+ app.UseHttpsRedirection();
+ 
+ app.UseAuthorization();
+ 
+ app.MapControllers();
+ 
+ app.Run();
+```
 
 ##### 3. Update ProductService Create endpoint with dapr service invocation. Open the `ProductsController.cs` file and modify the `CreateProduct` method to use Dapr for service invocation:
 - Inject `DaprClient` into the controller.

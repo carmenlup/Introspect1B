@@ -83,16 +83,10 @@ docker run -it --rm -p 8081:8081 `
 
 ### Accessing the Product Service
 You can access the Product Service API at the following URL:
-```http
+```
 https://localhost:8081/swagger/index.html
 http://localhost:8080/swagger/index.html
 ```
-Delete containerised ProductService because daper will be used
-```powershell
-docker rm -f productservice
-```
-
-
 ## Implement Dapr in ProductService
 ##### 1. Add Dapr for service invocation and state management.
   Add the `Dapr.Client` NuGet package to the project.
@@ -181,7 +175,7 @@ This command starts the ProductService application with Dapr, allowing it to com
 
 ## Accessing the Product Service with Dapr
 You can use Swagger UI to test the ProductService API endpoints. Open your web browser and navigate to:
-```http
+```
 https://localhost:5146/swagger/index.html
 ```
 

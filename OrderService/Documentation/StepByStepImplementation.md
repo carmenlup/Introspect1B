@@ -86,15 +86,10 @@ docker run -it --rm -p 8021:8021 `
 
 ### Accessing the Order Service
 You can access the Order Service API at the following URL:
-```https
+```
 https://localhost:8021/swagger/index.html
 http://localhost:8020/swagger/index.html
 ```
-Delete containerised OrderService because daper will be used
-```powershell
-docker rm -f orderservice
-```
-
 ## Run OrderService With Dapr
 Open a terminal under solution folder and navigate to the OrderService project directory. 
 Run the following command to start un the OrderService with Dapr:

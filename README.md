@@ -67,40 +67,13 @@ docker push introspect1bacr.azurecr.io/productservice:latest
    ```
 This command sets up the necessary components for Dapr to run locally, including a Redis state store and Pub/Sub component. 
 Check your docker containers to ensure that Dapr components are running correctly.
-  ![Blob Accessibility](Documentation/Images/DockerDapperContainers.jpg "Docker containers for dapr")
+  ![Docker for Desktop](Documentation/Images/DockerDapperContainers.jpg "Docker containers for dapr")
 
 # Order Microservice Documentation
 OrderService microservice is a RESTful API that provides order-related functionalities.
 Order service Subscribes to ProductService events to manage orders based on product availability.
 
 Also, it is containerized using Docker for easy deployment and scalability. Please reffer to the [Dockerfile](OrderService/Dockerfile) file code that contains documented step by step configuration to containerize the Order service.
-
-## Containerization 
-This chapter outlines the steps to containerize the OrderService API using Docker. The process includes building the Docker image, creating a self-signed certificate for HTTPS, and running the container with the necessary environment variables.
-Open a terminal under solution folder and navigate to the OrderService project directory. The following steps will guide you through the containerization process:
-##### 1. Build Immage
-```
-docker build -t orderservice:latest .
-```
-
-##### 2. Run the Container using the same certificate created for ProductService
-
-```
-docker run -it --rm -p 8021:8021 -p 8020:8020 `
-  -e "ASPNETCORE_URLS=https://+:8021;http://+:8020" `
-  -e "ASPNETCORE_HTTPS_PORTS=8021" `
-  -e "ASPNETCORE_Kestrel__Certificates__Default__Path=/https/productservice.pfx" `
-  -e "ASPNETCORE_Kestrel__Certificates__Default__Password=runapifromdocker" `
-  -v "${HOME}\.aspnet\https\productservice.pfx:/https/productservice.pfx" `
-  orderservice
-```
-
-### Accessing the Product Service
-You can access the Product Service API at the following URL:
-```
-https://localhost:8021/swagger/index.html
-http://localhost:8020/swagger/index.html
-```
 
 ## Deployment
 ##### 1. Login to azure
@@ -127,9 +100,9 @@ az acr login --name introspect1bacr
 ```
 ##### 6. Tag the Docker image
 ```
-docker tag productservice introspect1bacr.azurecr.io/productservice:latest
+docker tag orderservice introspect1bacr.azurecr.io/orderservice:latest
 ```
 ##### 7. Push the Docker image to ACR
 ```
-docker push introspect1bacr.azurecr.io/productservice:latest
+docker push introspect1bacr.azurecr.io/orderservice:latest
 ```

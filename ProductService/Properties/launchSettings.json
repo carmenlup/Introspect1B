@@ -38,6 +38,22 @@
       },
       "publishAllPorts": true,
       "useSSL": true
+    },
+    "Dapr-ProductService": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "daprOptions": {
+        "appId": "productservice",
+        "appPort": 5125,
+        "appProtocol": "http",
+        "daprHttpPort": 3500,
+        "daprGrpcPort": 50001,
+        "componentsPath": "../dapr/components"
+      }
     }
   },
   "$schema": "http://json.schemastore.org/launchsettings.json",

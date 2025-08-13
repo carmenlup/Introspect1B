@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Dapr.Client;
 
 using Microsoft.AspNetCore.Mvc;
@@ -57,10 +58,14 @@ namespace ProductService.Controllers
                 ProductPrice = product.Price
             };
 
+            // Add this line to log the event before publishing
+            var jsonPayload = JsonSerializer.Serialize(productCreatedEvent);
+            Console.WriteLine($"ProductService is sending event: {jsonPayload}");
+
             // Publish event to Dapr pub/sub
             await _daprClient.PublishEventAsync("pubsub", "product-created", productCreatedEvent);
 
-            return Ok(new { Message = "Product created and event published." });
+            return Ok(new { Message = $"Product {productCreatedEvent.ProductName} was created and event published." });
         }
 
         // PUT: api/product/5

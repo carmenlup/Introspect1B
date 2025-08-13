@@ -8,13 +8,22 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{4EFCE5A0-6B0C-4D91-BD3A-EDF5B4ACFB3B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{3492E140-4D97-406D-AC93-3F630E100A7B}"
-	ProjectSection(SolutionItems) = preProject
-		.github\workflows\produc-service-contayner.yaml = .github\workflows\produc-service-contayner.yaml
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderService", "OrderService\OrderService.csproj", "{BC31A4FB-887A-4673-B45D-5F81E381C7BA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{D9DD5A02-7222-416C-84D2-8358421CB045}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dapr", "dapr", "{60F20FE5-7122-4818-AE2F-8FE15E6517ED}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "component", "component", "{20665B1C-9BC4-4E71-A1C9-C5A655B199DE}"
+	ProjectSection(SolutionItems) = preProject
+		pubsub.yaml = pubsub.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{5E3F371A-4140-4E6D-8699-18272CD5109B}"
+	ProjectSection(SolutionItems) = preProject
+		Documentation\Images\DockerDapperContainers.jpg = Documentation\Images\DockerDapperContainers.jpg
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +45,8 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{3492E140-4D97-406D-AC93-3F630E100A7B} = {4EFCE5A0-6B0C-4D91-BD3A-EDF5B4ACFB3B}
+		{20665B1C-9BC4-4E71-A1C9-C5A655B199DE} = {60F20FE5-7122-4818-AE2F-8FE15E6517ED}
+		{5E3F371A-4140-4E6D-8699-18272CD5109B} = {D9DD5A02-7222-416C-84D2-8358421CB045}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {879A9AB7-59BF-4E0E-A51F-F776EBA77AE4}

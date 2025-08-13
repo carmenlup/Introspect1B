@@ -5,7 +5,7 @@ This documentation contain step by step instructions on OrderService microservic
 ##### 1. Create a new ASP.NET Core Web API project from Visual Studio or using the .NET CLI.
    - If using Visual Studio, select "ASP.NET Core Web API" template.
    - If using .NET CLI, run:
-	 ```
+	 ```powershell
 	 dotnet new webapi -n OrderService
 	 ```
 ##### 2. Implement the necessary models, controllers, and services for the OrderService API.
@@ -17,7 +17,7 @@ This documentation contain step by step instructions on OrderService microservic
    In the `OrderService` project, add the `Swashbuckle.AspNetCore` NuGet package to enable Swagger.
    - If using Visual Studio, right-click on the project, select "Manage NuGet Packages", and search for `Swashbuckle.AspNetCore`.
    - If using .NET CLI, run:
-	 ```
+	 ```powershell
 	 dotnet add package Swashbuckle.AspNetCore
 	 ``` 
 ##### 4. Add Dapr Client for Dapr integration.
@@ -25,7 +25,7 @@ This documentation contain step by step instructions on OrderService microservic
   Add the `Dapr.Client` NuGet package to the project.
    - If using Visual Studio, right-click on the project, select "Manage NuGet Packages", and search for `Dapr.Client`.
    - If using .NET CLI, run:
-	 ```
+	 ```powershell
 	 dotnet add package Dapr.Client
 	 ```
 
@@ -68,13 +68,13 @@ This chapter outlines the steps to containerize the OrderService API using Docke
 Open a terminal under solution folder and navigate to the OrderService project directory. The following steps will guide you through the containerization process:
 
 ##### 1. Build Immage
-```
+```powershell
 docker build -t orderservice:latest .
 ```
 
 ##### 4. Run the Container
 We will use the same self-signed certificate created for ProductService. Make sure you have the certificate file `productservice.pfx` in the `.aspnet\https` directory of your user profile.
-```
+```powershell
 docker run -it --rm -p 8021:8021 `
   -e "ASPNETCORE_URLS=https://+:8021;http://+:8020" `
   -e "ASPNETCORE_HTTPS_PORTS=8021" `
@@ -86,19 +86,19 @@ docker run -it --rm -p 8021:8021 `
 
 ### Accessing the Order Service
 You can access the Order Service API at the following URL:
-```
+```http
 https://localhost:8021/swagger/index.html
 http://localhost:8020/swagger/index.html
 ```
 Delete containerised OrderService because daper will be used
-```
+```powershell
 docker rm -f orderservice
 ```
 
 ## Run OrderService With Dapr
 Open a terminal under solution folder and navigate to the OrderService project directory. 
 Run the following command to start un the OrderService with Dapr:
-```
+```powershell
 dapr run --app-id orderservice --app-port 5146 --components-path "../dapr/components" -- dotnet run
 ```
 

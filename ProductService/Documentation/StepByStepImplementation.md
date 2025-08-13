@@ -56,16 +56,16 @@ This chapter outlines the steps to containerize the ProductService API using Doc
 Open a terminal under solution folder and navigate to the ProductService project directory. The following steps will guide you through the containerization process:
 
 ##### 1. Build Immage
-```
+```powershell
 docker build -t productservice:latest .
 ```
 
 ##### 2. Create  Self-Signed Certificate
-```
+```powershell
 dotnet dev-certs https -t -ep "%USERPROFILE%\.aspnet\https\productservice.pfx" -p runapifromdocker
 ```
 ##### 3. Trust the certificate on your local machine
-```
+```powershell
 dotnet dev-certs https --trust
 ```
 
@@ -83,12 +83,12 @@ docker run -it --rm -p 8081:8081 `
 
 ### Accessing the Product Service
 You can access the Product Service API at the following URL:
-```
+```http
 https://localhost:8081/swagger/index.html
 http://localhost:8080/swagger/index.html
 ```
 Delete containerised ProductService because daper will be used
-```
+```powershell
 docker rm -f productservice
 ```
 
@@ -98,7 +98,7 @@ docker rm -f productservice
   Add the `Dapr.Client` NuGet package to the project.
    - If using Visual Studio, right-click on the project, select "Manage NuGet Packages", and search for `Dapr.Client`.
    - If using .NET CLI, run:
-	 ```
+	 ```powershell
 	 dotnet add package Dapr.Client
 	 ```
 ##### 2. Configure Dapr in Program.cs. Open `Program.cs` and replace the existing code with the following:
@@ -174,14 +174,14 @@ Reffer to [Program.cs](../Program.cs) for complete code of the ProductService AP
 ## Run ProductService With Dapr
 Open a terminal under solution folder and navigate to the ProductService project directory. 
 Run the following command to start the ProductService with Dapr:
-```
+```powershell
 dapr run --app-id orderservice --app-port 5146 --components-path "../dapr/components" -- dotnet run
 ```
 This command starts the ProductService application with Dapr, allowing it to communicate with other services and utilize Dapr features.
 
 ## Accessing the Product Service with Dapr
 You can use Swagger UI to test the ProductService API endpoints. Open your web browser and navigate to:
-```
+```http
 https://localhost:5146/swagger/index.html
 ```
 

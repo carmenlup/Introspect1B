@@ -62,10 +62,10 @@ POST https://localhost:5146/api/products
 Content-Type: application/json
 
 {
-  "id": 1,
-  "name": "Sample Product",
-  "description": "This is a sample product.",
-  "price": 19.99
+  "id": 11,
+  "name": "Procuct check communication",
+  "price": 1,
+  "stock": 3,
 }
 ```
 The above request creates a new product in the ProductService. 

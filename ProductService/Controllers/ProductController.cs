@@ -2,7 +2,6 @@ using System.Text.Json;
 using Dapr.Client;
 
 using Microsoft.AspNetCore.Mvc;
-using ProductApi.Models;
 
 namespace ProductService.Controllers
 {

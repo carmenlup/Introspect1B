@@ -5,9 +5,12 @@ Also docker is used to containerize the microservices for easy deployment and sc
 
 # Introspect1B overview
 Introspect1B solution includes 2 microservices that are separated projects.
-Solution strucure contains the following projects:
-1. ProductService project
-1. OrderService project
+Solution strucure contains the following folders and projects:
+1. ProductService project - a microservice that manages products and publishes events when a product is created.
+1. OrderService project - a microservice that subscribes to ProductService events to demonstrate communication between microservices using Dapr.
+1. dapr folder - contains Dapr components configuration files for pub/sub and state store.
+1. Documentation folder - contains images files for used in README.md documentation.
+1. Solution Items - doocker compose file that defines the services and their configurations for running the microservices in Docker containers.
 
 # ProductService Microservice Documentation
 ProductService microservice is a RESTful API that provides product related functionalities. It allows users to manage products, including creating, updating, retrieving, and deleting product information.

@@ -30,7 +30,7 @@ services:
     container_name: product-service-dapr
     network_mode: "service:product-service-app"
     volumes:
-      - "./dapr/component:/components" # Path updated here
+      - "./dapr/components:/components" # Corrected path
     depends_on:
       - product-service-app
       - redis
@@ -57,7 +57,7 @@ services:
     container_name: order-service-dapr
     network_mode: "service:order-service-app"
     volumes:
-      - "./dapr/component:/components" # Path updated here
+      - "./dapr/components:/components" # Corrected path
     depends_on:
       - order-service-app
       - redis

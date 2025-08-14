@@ -24,6 +24,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{5E3F37
 	ProjectSection(SolutionItems) = preProject
 		Documentation\Images\CommunicationBetweenServicesOnLocal.jpg = Documentation\Images\CommunicationBetweenServicesOnLocal.jpg
 		Documentation\Images\DockerDapperContainers.jpg = Documentation\Images\DockerDapperContainers.jpg
+		Documentation\Images\PubishConsumeMessage.jpg = Documentation\Images\PubishConsumeMessage.jpg
+		Documentation\Images\RunServicesInDocker.jpg = Documentation\Images\RunServicesInDocker.jpg
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{986932DA-4F7C-48DF-8FBB-026A05FCB252}"

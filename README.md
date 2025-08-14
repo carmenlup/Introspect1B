@@ -72,6 +72,30 @@ The above request creates a new product in the ProductService.
 After the product is created, the ProductService will publish an event to Dapr pub/sub, which can be consumed by the OrderService and a message with product details will be logged in the OrderService console as in immage below.
 ![Dapr Communication between services](Documentation/Images/CommunicationBetweenServicesOnLocal.jpg "dapr communication on local")
 
+## Run and Test the Microservices from Docker on Local machine
+1. Open a terminal under solution folder run docker compose up command to build and run the microservices in Docker containers:
+   ```powershell
+   docker compose up --build
+   ```
+   This command builds the Docker images for both ProductService and OrderService and starts the containers.
+Your terminal should look like in immage below:
+![Run Dapr Microservices from docker](Documentation/Images/RunServicesInDocker.jpg "Run services from Docker")
+
+2. Open a browser and navigate to the following URLs to access the Swagger UI for each microservice to test both are working
+   - ProductService: [https://localhost:5125/swagger/index.html](https://localhost:5125/swagger/index.html)
+   - OrderService: [https://localhost:5146/swagger/index.html](https://localhost:5146/swagger/index.html)
+3. In Swagger UI, go to ProductService create endpoint and create a product with the next payload. 
+```json
+{
+  "id": 11,
+  "name": "Procuct check communication",
+  "price": 1,
+  "stock": 3
+}
+```
+4. Both publishing message from Product and consuming message in OrderService should be logged in the terminal: 
+![communication between services](Documentation/Images/PubishConsumeMessage.jpg "communication between services")
+
 # Introspect1B overview
 Introspect1B solution includes 2 microservices that are separated projects.
 Solution strucure contains the following projects:

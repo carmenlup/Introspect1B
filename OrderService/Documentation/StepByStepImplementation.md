@@ -96,4 +96,9 @@ Run the following command to start un the OrderService with Dapr:
 ```powershell
 dapr run --app-id orderservice --app-port 5146 --components-path "../dapr/components" -- dotnet run
 ```
+## Accessing the Product Service with Dapr
+You can use Swagger UI to test the ProductService API endpoints. Open your web browser and navigate to:
+```
+https://localhost:5146/swagger/index.html
+```
 

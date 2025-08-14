@@ -169,14 +169,14 @@ Reffer to [Program.cs](../Program.cs) for complete code of the ProductService AP
 Open a terminal under solution folder and navigate to the ProductService project directory. 
 Run the following command to start the ProductService with Dapr:
 ```powershell
-dapr run --app-id orderservice --app-port 5146 --components-path "../dapr/components" -- dotnet run
+dapr run --app-id orderservice --app-port 5125 --components-path "../dapr/components" -- dotnet run
 ```
 This command starts the ProductService application with Dapr, allowing it to communicate with other services and utilize Dapr features.
 
 ## Accessing the Product Service with Dapr
 You can use Swagger UI to test the ProductService API endpoints. Open your web browser and navigate to:
 ```
-https://localhost:5146/swagger/index.html
+https://localhost:5125/swagger/index.html
 ```
 
 ## Test communication between ProductService and OrderService using Dapr on local
@@ -184,7 +184,7 @@ You can test the communication between ProductService and OrderService using Dap
 In Swagger UI, go to create endpoint and create a product. After that, you can check the OrderService logs to see if the event was received.
 ### Example HTTP Requests for Create a Product
 ```http
-POST https://localhost:5146/api/products
+POST https://localhost:5125/api/products
 Content-Type: application/json
 
 {

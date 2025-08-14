@@ -3,6 +3,33 @@ This solurion is a demonstration of microservices architecture using Dapr for in
 For using dapr, you need to have Dapr installed and running on your local machine or in your cloud environment.
 Also docker is used to containerize the microservices for easy deployment and scalability.
 
+# Introspect1B overview
+Introspect1B solution includes 2 microservices that are separated projects.
+Solution strucure contains the following projects:
+1. ProductService project
+1. OrderService project
+
+# ProductService Microservice Documentation
+ProductService microservice is a RESTful API that provides product related functionalities. It allows users to manage products, including creating, updating, retrieving, and deleting product information.
+It provides a Swagger UI for easy API exploration and testing.
+ProductService Create endpoint use Dapr to publish events to a message broker when a product is created.
+This allows other services, such as OrderService, to subscribe to these events and perform actions based on product availability.
+
+Also, it is containerized using Docker for easy deployment and scalability. 
+Please reffer to the [Dockerfile](ProductService/Dockerfile) file code that contains documented step by step configuration to containerize the Product service.
+
+For detaild documentation for ProductService implementation and please refer to the [StepByStepImplementation.md](ProductService/Documentation/StepByStepImplementation.md) file.
+
+# OrderService Microservice Documentation
+OrderService microservice is a RESTful API that subscribes to ProductService events to demonstrate communication between microservices using Dapr. 
+It provides a Swagger UI for easy API exploration and testing.
+
+OrderService is also containerized using Docker for easy deployment and scalability.
+Please refer to the [Dockerfile](OrderService/Dockerfile) file code that contains documented step by step configuration to containerize the Order service.
+
+For detailed documentation for OrderService implementation please refer to the [StepByStepImplementation.md](OrderService/Documentation/StepByStepImplementation.md) file.
+
+
 # Local setup considerations
 ### Prerequisites
 1. Clone the repository to your local machine.
@@ -95,32 +122,6 @@ Your terminal should look like in immage below:
 ```
 4. Both publishing message from Product and consuming message in OrderService should be logged in the terminal: 
 ![communication between services](Documentation/Images/PubishConsumeMessage.jpg "communication between services")
-
-# Introspect1B overview
-Introspect1B solution includes 2 microservices that are separated projects.
-Solution strucure contains the following projects:
-1. ProductService project
-1. OrderService project
-
-# ProductService Microservice Documentation
-ProductService microservice is a RESTful API that provides product related functionalities. It allows users to manage products, including creating, updating, retrieving, and deleting product information.
-It provides a Swagger UI for easy API exploration and testing.
-ProductService Create endpoint use Dapr to publish events to a message broker when a product is created.
-This allows other services, such as OrderService, to subscribe to these events and perform actions based on product availability.
-
-Also, it is containerized using Docker for easy deployment and scalability. 
-Please reffer to the [Dockerfile](ProductService/Dockerfile) file code that contains documented step by step configuration to containerize the Product service.
-
-For detaild documentation for ProductService implementation and please refer to the [StepByStepImplementation.md](ProductService/Documentation/StepByStepImplementation.md) file.
-
-# OrderService Microservice Documentation
-OrderService microservice is a RESTful API that subscribes to ProductService events to demonstrate communication between microservices using Dapr. 
-It provides a Swagger UI for easy API exploration and testing.
-
-OrderService is also containerized using Docker for easy deployment and scalability.
-Please refer to the [Dockerfile](OrderService/Dockerfile) file code that contains documented step by step configuration to containerize the Order service.
-
-For detailed documentation for OrderService implementation please refer to the [StepByStepImplementation.md](OrderService/Documentation/StepByStepImplementation.md) file.
 
 # Deployment on azure
 Instead of using Docker Desktop, you can deploy the microservices to Azure Container Registry (ACR) and Azure Container Apps (ACA).

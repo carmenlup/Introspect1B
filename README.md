@@ -70,7 +70,7 @@ Content-Type: application/json
 ```
 The above request creates a new product in the ProductService. 
 After the product is created, the ProductService will publish an event to Dapr pub/sub, which can be consumed by the OrderService and a message with product details will be logged in the OrderService console as in immage below.
-![Dapr Communication between services](Documentation/Images/CommunicationBetweenServicesOnLocal.png "dapr communication on local")
+![Dapr Communication between services](Documentation/Images/CommunicationBetweenServicesOnLocal.jpg "dapr communication on local")
 
 # Introspect1B overview
 Introspect1B solution includes 2 microservices that are separated projects.

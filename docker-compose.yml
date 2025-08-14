@@ -16,6 +16,8 @@ services:
     container_name: product-service-app
     ports:
       - "5125:5125"
+    environment:
+      - ASPNETCORE_URLS=http://+:5125
   
   # The Dapr sidecar for Product Service
   product-service-dapr:
@@ -28,7 +30,7 @@ services:
     container_name: product-service-dapr
     network_mode: "service:product-service-app"
     volumes:
-      - "./components:/components"
+      - "./dapr/component:/components" # Path updated here
     depends_on:
       - product-service-app
       - redis
@@ -41,6 +43,8 @@ services:
     container_name: order-service-app
     ports:
       - "5146:5146"
+    environment:
+      - ASPNETCORE_URLS=http://+:5146
   
   # The Dapr sidecar for Order Service
   order-service-dapr:
@@ -53,7 +57,7 @@ services:
     container_name: order-service-dapr
     network_mode: "service:order-service-app"
     volumes:
-      - "./components:/components"
+      - "./dapr/component:/components" # Path updated here
     depends_on:
       - order-service-app
       - redis

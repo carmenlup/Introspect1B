@@ -15,9 +15,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dapr", "dapr", "{60F20FE5-7122-4818-AE2F-8FE15E6517ED}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "component", "component", "{20665B1C-9BC4-4E71-A1C9-C5A655B199DE}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "components", "components", "{20665B1C-9BC4-4E71-A1C9-C5A655B199DE}"
 	ProjectSection(SolutionItems) = preProject
-		pubsub.yaml = pubsub.yaml
+		dapr\components\pubsub.yaml = dapr\components\pubsub.yaml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{5E3F371A-4140-4E6D-8699-18272CD5109B}"

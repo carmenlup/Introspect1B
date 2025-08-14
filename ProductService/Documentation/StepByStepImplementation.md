@@ -165,7 +165,7 @@ The above code demonstrates how to use Dapr for service invocation in the `Creat
 Reffer to [Program.cs](../Program.cs) for complete code of the ProductService API.
 
 
-## Run ProductService With Dapr
+## Local Run ProductService With Dapr
 Open a terminal under solution folder and navigate to the ProductService project directory. 
 Run the following command to start the ProductService with Dapr:
 ```powershell

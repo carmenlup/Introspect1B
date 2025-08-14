@@ -90,7 +90,7 @@ You can access the Order Service API at the following URL:
 https://localhost:8021/swagger/index.html
 http://localhost:8020/swagger/index.html
 ```
-## Run OrderService With Dapr
+## Local Run OrderService With Dapr
 Open a terminal under solution folder and navigate to the OrderService project directory. 
 Run the following command to start un the OrderService with Dapr:
 ```powershell

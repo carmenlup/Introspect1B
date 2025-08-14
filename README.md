@@ -1,4 +1,78 @@
-# Introspect1B
+# General considerations
+This solurion is a demonstration of microservices architecture using Dapr for inter-service communication.
+For using dapr, you need to have Dapr installed and running on your local machine or in your cloud environment.
+Also docker is used to containerize the microservices for easy deployment and scalability.
+
+# Local setup considerations
+### Prerequisites
+1. Clone the repository to your local machine.
+1. Install Visual Studio 2022 on local machine and open the solution file `Introspect1B.sln` in Visual Studio.
+1. Build the solution to restore all NuGet packages and dependencies.
+1. Install Dapr and Docker on your local machine as described below.
+
+### Docker Setup on Local machine
+1. Ensure you have Docker installedon your machine. You can follow the [Docker installation guide](https://docs.docker.com/get-docker/) for instructions.
+
+### Dapr Setup on Local machine
+1. Ensure you have Dapr installed and initialized on your machine. You can follow the [Dapr installation guide](https://docs.dapr.io/getting-started/) for instructions.
+1. Open a terminal or command prompt
+1. Install Dapr CLI if you haven't already. You can download it from the [Dapr CLI installation page](https://docs.dapr.io/getting-started/install-dapr-cli/).
+1. Initialize Dapr in your local environment by running the following command:
+   ```
+   dapr init
+   ```		
+	This command sets up the necessary components for Dapr to run locally, including a Redis state store and Pub/Sub component. 
+Check your docker containers to ensure that Dapr components are running correctly on local machine.
+  ![Docker for Desktop](Documentation/Images/DockerDapperContainers.jpg "Docker containers for dapr")
+
+## Run and Test the Microservices Locally 
+
+### Local Run ProductService With Dapr
+Open a terminal under solution folder and navigate to the ProductService project directory. 
+Run the following command to start the ProductService with Dapr:
+```powershell
+dapr run --app-id orderservice --app-port 5125 --components-path "../dapr/components" -- dotnet run
+```
+This command starts the ProductService application with Dapr, allowing it to communicate with other services and utilize Dapr features.
+
+### Accessing the Product Service with Dapr
+You can use Swagger UI to test the ProductService API endpoints. Open your web browser and navigate to:
+```
+https://localhost:5125/swagger/index.html
+```
+
+### Local Run OrderService With Dapr
+Open a terminal under solution folder and navigate to the OrderService project directory. 
+Run the following command to start un the OrderService with Dapr:
+```powershell
+dapr run --app-id orderservice --app-port 5146 --components-path "../dapr/components" -- dotnet run
+```
+### Accessing the Order Service
+You can use Swagger UI to test the OrderService API endpoints. Open your web browser and navigate to:
+```
+https://localhost:5146/swagger/index.html
+```
+
+## Test communication between ProductService and OrderService using Dapr on local
+You can test the communication between ProductService and OrderService using Dapr by invoking the endpoints defined in the ProductService API. 
+In Swagger UI, go to create endpoint and create a product. 
+### Example HTTP Requests for Create a Product
+```http
+POST https://localhost:5146/api/products
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "Sample Product",
+  "description": "This is a sample product.",
+  "price": 19.99
+}
+```
+The above request creates a new product in the ProductService. 
+After the product is created, the ProductService will publish an event to Dapr pub/sub, which can be consumed by the OrderService and a message with product details will be logged in the OrderService console as in immage below.
+![Dapr Communication between services](Documentation/Images/CommunicationBetweenServicesOnLocal.png "dapr communication on local")
+
+# Introspect1B overview
 Introspect1B solution includes 2 microservices that are separated projects.
 Solution strucure contains the following projects:
 1. ProductService project
@@ -13,7 +87,7 @@ This allows other services, such as OrderService, to subscribe to these events a
 Also, it is containerized using Docker for easy deployment and scalability. 
 Please reffer to the [Dockerfile](ProductService/Dockerfile) file code that contains documented step by step configuration to containerize the Product service.
 
-For detaild documeentation for ProductService implementation please refer to the [StepByStepImplementation.md](ProductService/Documentation/StepByStepImplementation.md) file.
+For detaild documentation for ProductService implementation and please refer to the [StepByStepImplementation.md](ProductService/Documentation/StepByStepImplementation.md) file.
 
 # OrderService Microservice Documentation
 OrderService microservice is a RESTful API that subscribes to ProductService events to demonstrate communication between microservices using Dapr. 
@@ -24,8 +98,10 @@ Please refer to the [Dockerfile](OrderService/Dockerfile) file code that contain
 
 For detailed documentation for OrderService implementation please refer to the [StepByStepImplementation.md](OrderService/Documentation/StepByStepImplementation.md) file.
 
+# Deployment on azure
+Instead of using Docker Desktop, you can deploy the microservices to Azure Container Registry (ACR) and Azure Container Apps (ACA).
 
-## Deployment 
+## Deployment to Azure Container Registry (ACR) 
 ##### 1. Login to azure
 ```
 az login --tenant YOUR_TENANT_ID_
@@ -48,61 +124,19 @@ az acr show --name introspect1bacr --query loginServer --output table
 ```
 az acr login --name introspect1bacr
 ```
-##### 6. Tag the Docker image
+##### 6. Tag the Docker image for ProductService
 ```
 docker tag productservice introspect1bacr.azurecr.io/productservice:latest
 ```
-##### 7. Push the Docker image to ACR
+##### 7. Push the Docker image to ACR for ProductService
 ```
 docker push introspect1bacr.azurecr.io/productservice:latest
 ```
-
-## Dapr Setup
-1. Ensure you have Dapr installed and initialized on your machine. You can follow the [Dapr installation guide](https://docs.dapr.io/getting-started/) for instructions.
-1. Open a terminal or command prompt
-1. Install Dapr CLI if you haven't already. You can download it from the [Dapr CLI installation page](https://docs.dapr.io/getting-started/install-dapr-cli/).
-1. Initialize Dapr in your local environment by running the following command:
-   ```
-   dapr init
-   ```
-This command sets up the necessary components for Dapr to run locally, including a Redis state store and Pub/Sub component. 
-Check your docker containers to ensure that Dapr components are running correctly.
-  ![Docker for Desktop](Documentation/Images/DockerDapperContainers.jpg "Docker containers for dapr")
-
-# Order Microservice Documentation
-OrderService microservice is a RESTful API that provides order-related functionalities.
-Order service Subscribes to ProductService events to manage orders based on product availability.
-
-Also, it is containerized using Docker for easy deployment and scalability. Please reffer to the [Dockerfile](OrderService/Dockerfile) file code that contains documented step by step configuration to containerize the Order service.
-
-## Deployment
-##### 1. Login to azure
-```
-az login --tenant YOUR_TENANT_ID_
-```
-##### 2 Create the resource group
-```
-az group create --name introspect-1-b --location westeurope
-```
-##### 3. Create the ACR registry
-```
-az acr create --resource-group introspect-1-b --name introspect1bacr --sku Basic
-```
-
-##### 5 Get the ACR login server name
-```
-az acr show --name introspect1bacr --query loginServer --output table
-```
-
-##### 5. Login to the ACR registry
-```
-az acr login --name introspect1bacr
-```
-##### 6. Tag the Docker image
+##### 8. Tag the Docker image for OrderService
 ```
 docker tag orderservice introspect1bacr.azurecr.io/orderservice:latest
 ```
-##### 7. Push the Docker image to ACR
+##### 7. Push the Docker image to ACR for OrderService
 ```
 docker push introspect1bacr.azurecr.io/orderservice:latest
 ```

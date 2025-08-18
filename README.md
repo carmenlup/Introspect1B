@@ -128,7 +128,8 @@ Your terminal should look like in immage below:
 ```
 4. Both publishing message from Product and consuming message in OrderService should be logged in the terminal: 
 ![communication between services](Documentation/Images/PubishConsumeMessage.jpg "communication between services")
-
+----------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------
 # Deployment on azure
 Instead of using Docker Desktop, you can deploy the microservices to Azure Container Registry (ACR) and Azure Container Apps (ACA).
 
@@ -191,7 +192,7 @@ az acr repository list --name introspect1bacr --output table
 ```
 Both productservice and orderservice should be listed in the output.
 
-## Deployment to Azure Container Apps (ACA) using Azure Portal
+# Deployment to Azure Container Apps (ACA) using Azure Portal
 
 ##### 1. Deploy ProductService in ACA
 1. Go to azure portal and create a new Azure Container App.
@@ -201,19 +202,25 @@ Both productservice and orderservice should be listed in the output.
 	- Set the environment name to `my-container-app-env` and select the resource group `introspect-1-b`.
 	- Go to Monitoring tab and click Create New Log Analytics Workspace
 		- Set the name to `workspace-intospect1b-logs`
-		![analytics workspace](Documentation/Images/CreateACABasics.jpg "Analytics Workspace")
+		
+  		![analytics workspace](Documentation/Images/CreateACABasics.jpg "Analytics Workspace")
+
 5. In the Container tab
     - Select the container registry `introspect1bacr.azurecr.io`
 	- Select image `productservice`
 	- Select tag `latest`
 	- Authentication type: `Secret`
 	- Delpoyment Stack : `.NET`
+
 	![contianer config](Documentation/Images/CreateAcaContainerACR.jpg "ContainerACR Config")
+
 6. Go to Ingress tab
 	- Enable ingress
 	- Acccept trafic from anyware
 	- Target port: `8080`
+
 	![ingress config](Documentation/Images/CreateAcaIngress.jpg "Ingress Config")
+
 7. Press Review and create, Then Create
 
 8. Check the deployment status in the Azure Portal. 
@@ -247,8 +254,10 @@ We will deploy OrderService using the ACR image that we pushed in the previous s
 1. Pricing tier: `Basic`
 1. Go to "Advvanced" tab to change the authentication:
 	- enable `Access Keys Authentication` 
-	- disable Microsoft Entra ID Authentication	
+	- disable Microsoft Entra ID Authentication
+
 	![Redis Cache Authentication](Documentation/Images/AccessKeyAuthenticationForRedis.jpg "Redis Cache Authentication")
+
 1. Click on `Review + create` and then `Create` to provision the Redis Cache
 
 # Configure Dapr in both ACA apps
@@ -260,7 +269,9 @@ We will deploy OrderService using the ACR image that we pushed in the previous s
 	- Name: `pubsub`
 	- Select Azure Redis Cache host resource `introspect1b-redis` created at preview step
 	- Component name: `pubsub`
-![pubsub config](Documentation/Images/DaprComponentConfig.jpg "Dapr Pub/Sub Component Config")
+
+	![pubsub config](Documentation/Images/DaprComponentConfig.jpg "Dapr Pub/Sub Component Config")
+
 1. Go to the `productservice-app` resource in Azure Portal.
 1. Go to `Settings` tab and click on `Dapr`
 1. Click on `Enabled` and complete the next info
@@ -273,6 +284,7 @@ We will deploy OrderService using the ACR image that we pushed in the previous s
 1. Check the logs to ensure that Dapr is running correctly:
 	- Go to `Monitoring/LogStream`
 	- You should see logs indicating that Dapr is running and listening on port 3500.
+
 	![ProductService Dapr logs](Documentation/Images/DaprCheckRunning.png "ProductService Dapr logs")
 
 ##### 2. Configure Dapr pub/sub component for OrderService
@@ -300,6 +312,9 @@ Content-Type: application/json
 2. After the product is created, the ProductService will publish an event to Dapr pub/sub, which can be consumed by the OrderService 
 3. Check the logs frot both services to ensure that the event was published and consumed successfully.
    - In the `productservice-app` logs, you should see a message indicating that a product was created and an event was published.
-	 ![ProductService Event Published](Documentation/Images/ProductPublishMeessage "ProductService Event Published")]
+
+	![ProductService Event Published](Documentation/Images/ProductPublishMeessage.jpg "ProductService Event Published")]
+
    - In the `orderservice-app` logs, you should see a message indicating that an event was received and processed.
-	 ![OrderService Event Consumed](Documentation/Images/OrderSubscribeMeessage.jpg "OrderService Event Consumed")
+
+	![OrderService Event Consumed](Documentation/Images/OrderSubscribeMeessage.jpg "OrderService Event Consumed")

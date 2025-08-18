@@ -15,7 +15,7 @@ Solution strucure contains the following folders and projects:
 	- README.md file that provides an overview of the solution, microservices, and instructions for local setup and deployment.
 	- Introspect1B.sln file that is the solution file for Visual Studio, containing references to the ProductService and OrderService projects.
 
-# ProductService Microservice Documentation
+## ProductService Microservice Documentation
 ProductService microservice is a RESTful API that provides product related functionalities. It allows users to manage products, including creating, updating, retrieving, and deleting product information.
 It provides a Swagger UI for easy API exploration and testing.
 ProductService Create endpoint use Dapr to publish events to a message broker when a product is created.
@@ -26,7 +26,7 @@ Please reffer to the [Dockerfile](ProductService/Dockerfile) file code that cont
 
 For detaild documentation for ProductService implementation and please refer to the [StepByStepImplementation.md](ProductService/Documentation/StepByStepImplementation.md) file.
 
-# OrderService Microservice Documentation
+## OrderService Microservice Documentation
 OrderService microservice is a RESTful API that subscribes to ProductService events to demonstrate communication between microservices using Dapr. 
 It provides a Swagger UI for easy API exploration and testing.
 

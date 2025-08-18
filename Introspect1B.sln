@@ -23,6 +23,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{5E3F371A-4140-4E6D-8699-18272CD5109B}"
 	ProjectSection(SolutionItems) = preProject
 		Documentation\Images\AccessKeyAuthenticationForRedis.jpg = Documentation\Images\AccessKeyAuthenticationForRedis.jpg
+		Documentation\Images\Architecture.jpg = Documentation\Images\Architecture.jpg
 		Documentation\Images\CommunicationBetweenServicesOnLocal.jpg = Documentation\Images\CommunicationBetweenServicesOnLocal.jpg
 		Documentation\Images\CreateACABasics.jpg = Documentation\Images\CreateACABasics.jpg
 		Documentation\Images\CreateAcaContainerACR.jpg = Documentation\Images\CreateAcaContainerACR.jpg

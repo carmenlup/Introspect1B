@@ -3,6 +3,9 @@ This solurion is a demonstration of microservices architecture using Dapr for in
 For using dapr, you need to have Dapr installed and running on your local machine or in your cloud environment.
 Also docker is used to containerize the microservices for easy deployment and scalability.
 
+### Architecture Overview
+![Architecture Overview](Documentation/Images/Architecture.jpg "Architecture Overview")
+
 # Introspect1B overview
 Introspect1B solution includes 2 microservices that are separated projects.
 Solution strucure contains the following folders and projects:

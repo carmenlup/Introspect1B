@@ -201,20 +201,23 @@ Both productservice and orderservice should be listed in the output.
 	- Set the environment name to `my-container-app-env` and select the resource group `introspect-1-b`.
 	- Go to Monitoring tab and click Create New Log Analytics Workspace
 		- Set the name to `workspace-intospect1b-logs`
+		![analytics workspace](Documentation/Images/CreateACABasics.jpg "Analytics Workspace")
 5. In the Container tab
     - Select the container registry `introspect1bacr.azurecr.io`
 	- Select image `productservice`
 	- Select tag `latest`
 	- Authentication type: `Secret`
 	- Delpoyment Stack : `.NET`
+	![contianer config](Documentation/Images/CreateAcaContainerACR.jpg "ContainerACR Config")
 6. Go to Ingress tab
 	- Enable ingress
 	- Acccept trafic from anyware
+	- Target port: `8080`
+	![ingress config](Documentation/Images/CreateAcaIngress.jpg "Ingress Config")
 7. Press Review and create, Then Create
 
-
-
-
+8. Check the deployment status in the Azure Portal. 
+It may take a few minutes for the Container App to be created and the container to be deployed.
 After resource was deployed check your `productservice-app` Container App and make sure it is running:
 - Go to the `productservice-app` resource in Azure Portal.
 - Copy the URL from the Overview tab and replace `<productappURL>`in the link below
@@ -226,23 +229,78 @@ Your link sould look like this:
 https://productservice-app.jollypond-a6f1a425.westeurope.azurecontainerapps.io/swagger/index.html
 ```
 - 
-You can check the logs to see if the service is running correctly.
 
-##### 2. Provision Redis Cache for Dapr pub/sub
+##### 2. Deploy OrderService in ACA 
+We will use the same environment `my-container-app-env` and Analytics Workspace `workspace-intospect1b-logs` that we created for ProductService.
+We will deploy OrderService using the ACR image that we pushed in the previous section.
+1. Go to azure portal an select Created Azure Container App Environment `my-container-app-env`
+1. go to `Apps` tab and click on `+ Create`
+1. Deploy orderservice using the ACR immage by following the steps 5 - 8 from the previous section.
+
+	
+
+##### 3. Provision Redis Cache for Dapr pub/sub
 1. Go to azure portal and create a new Azure Cache for Redis.
 1. Select resource group `introspect-1-b`
 1. Redis Cache: `introspect1b-redis`
 1. Location: `westeurope`
 1. Pricing tier: `Basic`
-1. Click on Review and create, then Create
+1. Go to "Advvanced" tab to change the authentication:
+	- enable `Access Keys Authentication` 
+	- disable Microsoft Entra ID Authentication	
+	![Redis Cache Authentication](Documentation/Images/AccessKeyAuthenticationForRedis.jpg "Redis Cache Authentication")
+1. Click on `Review + create` and then `Create` to provision the Redis Cache
 
-Check Redis cache conectivity:
+# Configure Dapr in both ACA apps
+##### 1. Configure Dapr pub/sub component for ProductService
+1. Go to environment `my-container-app-env` in Azure Portal.
+1. Go to `Settings` tab and click on `Dapr Components`
+1. Click on `+ Create` to create a new Dapr component.
+	- Select Building Block Type: `Pub/Sub`
+	- Name: `pubsub`
+	- Select Azure Redis Cache host resource `introspect1b-redis` created at preview step
+	- Component name: `pubsub`
+![pubsub config](Documentation/Images/DaprComponentConfig.jpg "Dapr Pub/Sub Component Config")
+1. Go to the `productservice-app` resource in Azure Portal.
+1. Go to `Settings` tab and click on `Dapr`
+1. Click on `Enabled` and complete the next info
+	- App Id: `productservice`
+	- App Port: `8080`
+	- Log Level: `Debug`
+	- API logging: `Enabled`
+1. Save
+1. Stop and start the `productservice-app` Container App to apply the changes.
+1. Check the logs to ensure that Dapr is running correctly:
+	- Go to `Monitoring/LogStream`
+	- You should see logs indicating that Dapr is running and listening on port 3500.
+	![ProductService Dapr logs](Documentation/Images/DaprCheckRunning.png "ProductService Dapr logs")
+
+##### 2. Configure Dapr pub/sub component for OrderService
+Follow steps 4 - 8 from the previous section to configure Dapr pub/sub component for OrderService.
+
+
+
+# Test communication between ProductService and OrderService using Dapr on Azure
+You can test the communication between ProductService and OrderService using Dapr by invoking the endpoints defined in the ProductService API.
+In Swagger UI, go to create endpoint and create a product.
+### Example HTTP Requests for Create a Product
+```http
+POST https://<productappURL>/api/products
+Content-Type: application/json
+
+{
+  "id": 100,
+  "name": "Procuct check communication Azure",
+  "price": 1,
+  "stock": 3
+}
 ```
-redis-cli -p 6379 -h <redisinstancename>.redis.cache.windows.net -a <redis-key>
-```
-
-#### 3. Configure Redis Cache connection string in ProductService Container App
-1. After the Redis Cache is created, go to the `introspect1b-redis` resource and copy the `Primary connection string` from the `Access keys` section.
-1. Go to the `product-container-app-env` resource and click on `Configuration` under `Settings`.
-1. Click on `+ Add` to add a new configuration.
-
+1. The above request creates a new product in the ProductService.
+![Create Product on Azure](Documentation/Images/ProductCreatedSwaggerjpg.jpg "Create Product on Azure")
+2. After the product is created, the ProductService will publish an event to Dapr pub/sub, which can be consumed by the OrderService 
+3. Check the logs frot both services to ensure that the event was published and consumed successfully.
+   - In the `productservice-app` logs, you should see a message indicating that a product was created and an event was published.
+	 ![ProductService Event Published](Documentation/Images/ProductCreatedSwaggerjpg "ProductService Event Published")]
+   - In the `orderservice-app` logs, you should see a message indicating that an event was received and processed.
+	 ![OrderService Event Consumed](Documentation/Images/OrderSubscribeMeessage.jpg "OrderService Event Consumed")]
+![Dapr Communication between services](Documentation/Images/CommunicationBetweenServicesOnAzure.jpg "dapr communication on Azure")

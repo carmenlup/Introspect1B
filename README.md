@@ -300,6 +300,6 @@ Content-Type: application/json
 2. After the product is created, the ProductService will publish an event to Dapr pub/sub, which can be consumed by the OrderService 
 3. Check the logs frot both services to ensure that the event was published and consumed successfully.
    - In the `productservice-app` logs, you should see a message indicating that a product was created and an event was published.
-	 ![ProductService Event Published](Documentation/Images/ProductCreatedSwaggerjpg "ProductService Event Published")]
+	 ![ProductService Event Published](Documentation/Images/ProductPublishMeessage "ProductService Event Published")]
    - In the `orderservice-app` logs, you should see a message indicating that an event was received and processed.
 	 ![OrderService Event Consumed](Documentation/Images/OrderSubscribeMeessage.jpg "OrderService Event Consumed")

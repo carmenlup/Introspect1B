@@ -36,6 +36,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{5E3F37
 		Documentation\Images\DockerDaprContainers.jpg = Documentation\Images\DockerDaprContainers.jpg
 		Documentation\Images\OrderSubscribeMeessage.jpg = Documentation\Images\OrderSubscribeMeessage.jpg
 		Documentation\Images\ProductCreatedSwaggerjpg.jpg = Documentation\Images\ProductCreatedSwaggerjpg.jpg
+		Documentation\Images\ProductPublishMeessage.jpg = Documentation\Images\ProductPublishMeessage.jpg
 		Documentation\Images\PubishConsumeMessage.jpg = Documentation\Images\PubishConsumeMessage.jpg
 		Documentation\Images\RunServicesInDocker.jpg = Documentation\Images\RunServicesInDocker.jpg
 		Documentation\Images\secrets add to env.jpg = Documentation\Images\secrets add to env.jpg

@@ -35,8 +35,11 @@ Please refer to the [Dockerfile](OrderService/Dockerfile) file code that contain
 
 For detailed documentation for OrderService implementation please refer to the [StepByStepImplementation.md](OrderService/Documentation/StepByStepImplementation.md) file.
 
+----------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------
 
 # Local setup considerations
+This section provides instructions for setting up and running the microservices locally using Dapr and Docker.
 ### Prerequisites
 1. Clone the repository to your local machine.
 1. Install Visual Studio 2022 on local machine and open the solution file `Introspect1B.sln` in Visual Studio.
@@ -131,7 +134,7 @@ Your terminal should look like in immage below:
 ----------------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------
 # Deployment on azure
-Instead of using Docker Desktop, you can deploy the microservices to Azure Container Registry (ACR) and Azure Container Apps (ACA).
+This section provides instructions for deploying the microservices to Azure using Azure Container Registry (ACR) and Azure Container Apps (ACA).
 
 ## Deployment to Azure Container Registry (ACR) 
 ##### 1. Login to azure

@@ -302,5 +302,4 @@ Content-Type: application/json
    - In the `productservice-app` logs, you should see a message indicating that a product was created and an event was published.
 	 ![ProductService Event Published](Documentation/Images/ProductCreatedSwaggerjpg "ProductService Event Published")]
    - In the `orderservice-app` logs, you should see a message indicating that an event was received and processed.
-	 ![OrderService Event Consumed](Documentation/Images/OrderSubscribeMeessage.jpg "OrderService Event Consumed")]
-![Dapr Communication between services](Documentation/Images/CommunicationBetweenServicesOnAzure.jpg "dapr communication on Azure")
+	 ![OrderService Event Consumed](Documentation/Images/OrderSubscribeMeessage.jpg "OrderService Event Consumed")

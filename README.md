@@ -56,7 +56,7 @@ For detailed documentation for OrderService implementation please refer to the [
    ```		
 	This command sets up the necessary components for Dapr to run locally, including a Redis state store and Pub/Sub component. 
 Check your docker containers to ensure that Dapr components are running correctly on local machine.
-  ![Docker for Desktop](Documentation/Images/DockerDapperContainers.jpg "Docker containers for dapr")
+  ![Docker for Desktop](Documentation/Images/DockerDaprContainers.jpg "Docker containers for dapr")
 
 ## Run and Test the Microservices Locally 
 

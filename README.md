@@ -64,7 +64,7 @@ Check your docker containers to ensure that Dapr components are running correctl
 Open a terminal under solution folder and navigate to the ProductService project directory. 
 Run the following command to start the ProductService with Dapr:
 ```powershell
-dapr run --app-id orderservice --app-port 5125 --components-path "../dapr/components" -- dotnet run
+dapr run --app-id productservice --app-port 5125 --components-path "../dapr/components" -- dotnet run
 ```
 This command starts the ProductService application with Dapr, allowing it to communicate with other services and utilize Dapr features.
 
@@ -146,28 +146,103 @@ az group create --name introspect-1-b --location westeurope
 az acr create --resource-group introspect-1-b --name introspect1bacr --sku Basic
 ```
 
-##### 5 Get the ACR login server name
+##### 4 Get the ACR login server name
 ```
 az acr show --name introspect1bacr --query loginServer --output table
 ```
-
-##### 5. Login to the ACR registry
+##### 5. Tag the Docker image for ProductService
+You need to ensure your local Docker immage exists before tagging it. 
+If you have not built the Docker image yet, you can do so by running the following command in the ProductService directory:
 ```
-az acr login --name introspect1bacr
+docker build -t productservice:latest .
 ```
-##### 6. Tag the Docker image for ProductService
+Then, tag the Docker image for ProductService:
 ```
 docker tag productservice introspect1bacr.azurecr.io/productservice:latest
 ```
+
+##### 6. Login to the ACR registry
+```
+az acr login --name introspect1bacr
+```
+
 ##### 7. Push the Docker image to ACR for ProductService
 ```
 docker push introspect1bacr.azurecr.io/productservice:latest
 ```
 ##### 8. Tag the Docker image for OrderService
+You need to ensure your local Docker immage exists before tagging it.
+If you have not built the Docker image yet, you can do so by running the following command in the OrderService directory:
+```
+docker build -t orderservice:latest .
+```
+Then, tag the Docker image for OrderService:
 ```
 docker tag orderservice introspect1bacr.azurecr.io/orderservice:latest
 ```
-##### 7. Push the Docker image to ACR for OrderService
+##### 9. Push the Docker image to ACR for OrderService
 ```
 docker push introspect1bacr.azurecr.io/orderservice:latest
 ```
+
+##### 10. Verify the images in ACR
+```
+az acr repository list --name introspect1bacr --output table
+```
+Both productservice and orderservice should be listed in the output.
+
+## Deployment to Azure Container Apps (ACA) using Azure Portal
+
+##### 1. Deploy ProductService in ACA
+1. Go to azure portal and create a new Azure Container App.
+2. Select respurce group `introspect-1-b` 
+3. Conteiner App Name: `productservice-app`
+4. Click on Create new environment
+	- Set the environment name to `my-container-app-env` and select the resource group `introspect-1-b`.
+	- Go to Monitoring tab and click Create New Log Analytics Workspace
+		- Set the name to `workspace-intospect1b-logs`
+5. In the Container tab
+    - Select the container registry `introspect1bacr.azurecr.io`
+	- Select image `productservice`
+	- Select tag `latest`
+	- Authentication type: `Secret`
+	- Delpoyment Stack : `.NET`
+6. Go to Ingress tab
+	- Enable ingress
+	- Acccept trafic from anyware
+7. Press Review and create, Then Create
+
+
+
+
+After resource was deployed check your `productservice-app` Container App and make sure it is running:
+- Go to the `productservice-app` resource in Azure Portal.
+- Copy the URL from the Overview tab and replace `<productappURL>`in the link below
+```
+<productappURL>/swagger/index.html
+```
+Your link sould look like this:
+```
+https://productservice-app.jollypond-a6f1a425.westeurope.azurecontainerapps.io/swagger/index.html
+```
+- 
+You can check the logs to see if the service is running correctly.
+
+##### 2. Provision Redis Cache for Dapr pub/sub
+1. Go to azure portal and create a new Azure Cache for Redis.
+1. Select resource group `introspect-1-b`
+1. Redis Cache: `introspect1b-redis`
+1. Location: `westeurope`
+1. Pricing tier: `Basic`
+1. Click on Review and create, then Create
+
+Check Redis cache conectivity:
+```
+redis-cli -p 6379 -h <redisinstancename>.redis.cache.windows.net -a <redis-key>
+```
+
+#### 3. Configure Redis Cache connection string in ProductService Container App
+1. After the Redis Cache is created, go to the `introspect1b-redis` resource and copy the `Primary connection string` from the `Access keys` section.
+1. Go to the `product-container-app-env` resource and click on `Configuration` under `Settings`.
+1. Click on `+ Add` to add a new configuration.
+

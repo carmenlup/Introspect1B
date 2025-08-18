@@ -23,9 +23,18 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{5E3F371A-4140-4E6D-8699-18272CD5109B}"
 	ProjectSection(SolutionItems) = preProject
 		Documentation\Images\CommunicationBetweenServicesOnLocal.jpg = Documentation\Images\CommunicationBetweenServicesOnLocal.jpg
-		Documentation\Images\DockerDapperContainers.jpg = Documentation\Images\DockerDapperContainers.jpg
+		Documentation\Images\CreateACABasics.jpg = Documentation\Images\CreateACABasics.jpg
+		Documentation\Images\CreateAcaContainerACR.jpg = Documentation\Images\CreateAcaContainerACR.jpg
+		Documentation\Images\CreateAcaIngress.jpg = Documentation\Images\CreateAcaIngress.jpg
+		Documentation\Images\dapr in azure.jpg = Documentation\Images\dapr in azure.jpg
+		Documentation\Images\DaprComponentConfigCheck.jpg = Documentation\Images\DaprComponentConfigCheck.jpg
+		Documentation\Images\DaprComponentConfig.jpg = Documentation\Images\DaprComponentConfig.jpg
+		Documentation\Images\DaprMetadataConfig.jpg = Documentation\Images\DaprMetadataConfig.jpg
+		Documentation\Images\EnvironmentSetup.jpg = Documentation\Images\EnvironmentSetup.jpg
+		Documentation\Images\DockerDaprContainers.jpg = Documentation\Images\DockerDaprContainers.jpg
 		Documentation\Images\PubishConsumeMessage.jpg = Documentation\Images\PubishConsumeMessage.jpg
 		Documentation\Images\RunServicesInDocker.jpg = Documentation\Images\RunServicesInDocker.jpg
+		Documentation\Images\secrets add to env.jpg = Documentation\Images\secrets add to env.jpg
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{986932DA-4F7C-48DF-8FBB-026A05FCB252}"

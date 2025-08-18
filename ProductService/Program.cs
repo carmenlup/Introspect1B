@@ -21,6 +21,9 @@ app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
+// Use this middleware to enable Dapr CloudEvents
+app.UseCloudEvents();
+
 app.UseAuthorization();
 
 app.MapControllers();

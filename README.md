@@ -324,3 +324,9 @@ Content-Type: application/json
    - In the `orderservice-app` logs, you should see a message indicating that an event was received and processed.
 
 	![OrderService Event Consumed](Documentation/Images/OrderSubscribeMeessage.jpg "OrderService Event Consumed")
+
+## Documentation & learnings
+For further reading and learning about Azure Container Apps, Dapr, and microservices architecture, you can refer to the following resources:
+1. Container apps documentation: [Azure Container Apps Documentation](https://learn.microsoft.com/en-us/azure/container-apps/)
+1. Microsoft Dapr documentation: [Dapr Documentation](https://learn.microsoft.com/en-us/azure/container-apps/dapr-overview)
+1. Azure Container Apps Tutorial: [Azure Container Apps Tutorial](https://youtu.be/jfYJEcDOOkI?si=ePbJMgg2l6Ru-Zna)

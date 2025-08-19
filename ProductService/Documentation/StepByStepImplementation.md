@@ -1,5 +1,6 @@
 # Development steps
-This documentation contain step by step instructions on ProductService microservice was build, run and deployed in Azure.
+This documentation contain step by step instructions on ProductService microservice was build, run and deployed Docker. 
+Using this documentation you can build the ProductServvie microservice from scratch and run it locally with Dapr or without Dapr.
 
 ## Create the project
 ##### 1. Create a new ASP.NET Core Web API project from Visual Studio or using the .NET CLI.
